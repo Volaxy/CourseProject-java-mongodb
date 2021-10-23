@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.volaxxy.cpjavamongodb.domain.User;
+import com.volaxxy.cpjavamongodb.dto.UserDTO;
 import com.volaxxy.cpjavamongodb.repositories.UserRepository;
 import com.volaxxy.cpjavamongodb.services.exceptions.ObjectNotFoundException;
 
@@ -24,6 +25,14 @@ public class UserService {
 		Optional<User> user = userRepository.findById(id);
 		
 		return user.orElseThrow(() -> new ObjectNotFoundException("Object not found! :("));
+	}
+	
+	public User insert(User user) {
+		return userRepository.insert(user);
+	}
+	
+	public User fromDTO(UserDTO userDTO) {
+		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
 	}
 
 }
